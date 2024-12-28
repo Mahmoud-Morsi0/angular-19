@@ -1,0 +1,39 @@
+.radio-options{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  width: 100%;
+}
+
+.radio-option{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px ;
+  height: 35px;
+  border: 2px solid #ccc;
+  border-radius: 25px;
+  word-break: keep-all;
+  padding: 2px;
+  margin: 10px;
+  color: #6e6e6e;
+  transition: background-color 0.3s ease;
+  &.selected {
+    border: 2px solid #0310ff;
+  }
+  & label{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 5px;
+  }
+  & input{
+    width: 16px;
+    height: 16px;
+    margin: 0;
+
+  }
+
+
+
+}

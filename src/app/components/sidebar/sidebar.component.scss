@@ -1,0 +1,24 @@
+.title{
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  transition: color 0.3s ease;
+  cursor: pointer;
+  &:hover {
+    color: #ff4f03;
+  }
+  &:active {
+    color: #222;
+  }
+  &:focus {
+    outline: none;
+  }
+  &:visited {
+    color: #888;
+  }
+  &.highlight {
+    color: #f00;
+  }
+}

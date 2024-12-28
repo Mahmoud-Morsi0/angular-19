@@ -1,0 +1,9 @@
+.error-message{
+  color: rgb(255, 57, 57);
+  font-size: 1rem;
+  margin-bottom: 10px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}

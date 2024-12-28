@@ -1,0 +1,8 @@
+<div class="input-wrapper">
+  <p-floatlabel variant="in">
+    <input pInputText [id]="name" [type]="type" [placeholder]="placeholder" [value]="value()" (input)="onInput($event)"
+      class="inputBorder" />
+    <label [for]="name">{{label}}</label>
+  </p-floatlabel>
+  <span class="error-message" *ngIf="errorMessage">{{ errorMessage }}</span>
+</div>
