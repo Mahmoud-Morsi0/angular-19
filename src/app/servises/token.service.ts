@@ -1,15 +1,12 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { ApiService } from './api.service';
-import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TokenService {
   private http = inject(ApiService);
-
-  private tokenSignal = signal<string>(localStorage.getItem('authToken') || '');
-
+  private tokenSignal = signal<string>('');
   public token = this.tokenSignal.asReadonly();
 
   constructor() {
@@ -24,7 +21,6 @@ export class TokenService {
 
   setToken(token: string) {
     this.tokenSignal.set(token);
-    localStorage.setItem('authToken', token);
   }
 
   getTokenValue(): string {
@@ -33,6 +29,5 @@ export class TokenService {
 
   removeToken() {
     this.tokenSignal.set('');
-    localStorage.removeItem('authToken');
   }
 }

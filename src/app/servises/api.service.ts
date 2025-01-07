@@ -1,9 +1,11 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, throwError } from 'rxjs';
-import { ApiResponse, ApiError, PaginatedResponse } from '../interfaces/api-response.interface';
+import { Observable, catchError, throwError } from 'rxjs';
 import { HttpOptions } from '../interfaces/http-params.interface';
 import { environment } from '../../environments/environment';
+import { ApiError, ApiResponse } from '../interfaces/api-response.interface';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,33 +15,33 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-/**
-   * Get request to fetch data from an endpoint.
-   * @param endpoint The API endpoint (e.g., 'users/profile').
-   * @param options Optional query parameters.
-   * @returns Observable of the API response.
-   */
+  /**
+     * Get request to fetch data from an endpoint.
+     * @param endpoint The API endpoint (e.g., 'users/profile').
+     * @param options Optional query parameters.
+     * @returns Observable of the API response.
+     */
   get<T>(endpoint: string, options?: HttpOptions): Observable<any> {
     return this.http
       .get<ApiResponse<T>>(`${this.apiUrl}/${endpoint}`, {
-        params: options?.params,      })
+        params: options?.params as { [param: string]: string | number | boolean | readonly (string | number | boolean)[] },
+      })
       .pipe(catchError(this.handleError));
   }
-
-/**
-   * Post request to send data to an endpoint.
-   * @param endpoint The API endpoint (e.g., 'users/login').
-   * @param data The data to be sent in the request body.
-   * @param options Optional query parameters.
-   * @returns Observable of the API response.
-   */
+  /**
+     * Post request to send data to an endpoint.
+     * @param endpoint The API endpoint (e.g., 'users/login').
+     * @param data The data to be sent in the request body.
+     * @param options Optional query parameters.
+     * @returns Observable of the API response.
+     */
   post<T>(endpoint: string, data: any, options?: HttpOptions): Observable<any> {
     return this.http
       .post<ApiResponse<T>>(`${this.apiUrl}/${endpoint}`, data, {
-        params: options?.params,      })
+        params: options?.params as { [param: string]: string | number | boolean | readonly (string | number | boolean)[] },
+      })
       .pipe(catchError(this.handleError));
   }
-
   /**
    * Post request to send form data to an endpoint.
    * @param endpoint The API endpoint (e.g., 'leave/create-leave-request').
@@ -64,11 +66,10 @@ export class ApiService {
 
     return this.http
       .post<ApiResponse<T>>(`${this.apiUrl}/${endpoint}`, formData, {
-        params: options?.params,
+        params: options?.params as { [param: string]: string | number | boolean | readonly (string | number | boolean)[] },
       })
       .pipe(catchError(this.handleError));
   }
-
   /**
    * Put request to update data at an endpoint.
    * @param endpoint The API endpoint (e.g., 'users/123').
@@ -79,10 +80,10 @@ export class ApiService {
   put<T>(endpoint: string, data: any, options?: HttpOptions): Observable<any> {
     return this.http
       .put<ApiResponse<T>>(`${this.apiUrl}/${endpoint}`, data, {
-        params: options?.params,      })
+        params: options?.params as { [param: string]: string | number | boolean | readonly (string | number | boolean)[] },
+      })
       .pipe(catchError(this.handleError));
   }
-
   /**
    * Delete request to remove data at an endpoint.
    * @param endpoint The API endpoint (e.g., 'users/123').
@@ -92,11 +93,10 @@ export class ApiService {
   delete<T>(endpoint: string, options?: HttpOptions): Observable<any> {
     return this.http
       .delete<ApiResponse<T>>(`${this.apiUrl}/${endpoint}`, {
-        params: options?.params,
+        params: options?.params as { [param: string]: string | number | boolean | readonly (string | number | boolean)[] },
       })
       .pipe(catchError(this.handleError));
   }
-
   /**
    * Download a file from an endpoint.
    * @param endpoint The API endpoint (e.g., 'files/123').
@@ -107,18 +107,26 @@ export class ApiService {
     return this.http
       .get(`${this.apiUrl}/${endpoint}`, {
         responseType: 'blob',
-        params: options?.params,
+        params: options?.params as { [param: string]: string | number | boolean | readonly (string | number | boolean)[] },
       })
       .pipe(catchError(this.handleError));
   }
 
+  /**
+   * Upload a file to an endpoint.
+   * @param endpoint The API endpoint (e.g., 'files/upload').
+   * @param file The file to be uploaded.
+   * @param options Optional query parameters and headers.
+   * @returns Observable of the API response.
+   */
   uploadFile(endpoint: string, file: File, options?: HttpOptions): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
 
     return this.http
       .post<ApiResponse<any>>(`${this.apiUrl}/${endpoint}`, formData, {
-        params: options?.params,      })
+        params: options?.params as { [param: string]: string | number | boolean | readonly (string | number | boolean)[] },
+      })
       .pipe(catchError(this.handleError));
   }
   /**

@@ -1,1 +1,42 @@
-<h1 class="title">Brite</h1>
+<div class="min-h-screen flex relative lg:static surface-ground">
+  <!-- Sidebar Toggle Button (for mobile) -->
+  <button (click)="isSidebarVisible = !isSidebarVisible" class="lg:hidden p-2 fixed top-2 left-2 z-2">
+    <app-icon name="menu" [size]="24" />
+  </button>
+
+  <!-- Sidebar -->
+  <div class="h-screen hidden lg:block flex-shrink-0 absolute lg:static left-0 top-0 z-1 select-none"
+    [class.block]="isSidebarVisible" style="width: 280px">
+    <div class="h-full bg-surface-card border-right-1 surface-border flex flex-column">
+      <!-- Logo -->
+      <div class="flex align-items-center px-5 flex-shrink-0" style="height: 60px">
+        <img src="assets/logo.png" height="30" alt="App Logo" />
+      </div>
+
+      <!-- Menu Items -->
+      <div class="overflow-y-auto">
+        <ul class="list-none p-2 m-0">
+          @if (visibleMenuItems && visibleMenuItems.length > 0) {
+          @for (item of visibleMenuItems; track item.label) {
+          <li class="mb-1">
+            <a [routerLink]="item.routerLink" routerLinkActive="bg-primary"
+              class="flex align-items-center cursor-pointer p-3 hover:surface-hover transition-colors transition-duration-150 rounded-md"
+              [attr.aria-label]="item.label">
+              <app-icon [name]="item.iconName" [size]="24" class="text-color" aria-hidden="true" />
+              <span class="ml-2 font-medium">{{item.label}}</span>
+            </a>
+          </li>
+          }
+          } @else {
+          <p class="p-3 text-color-secondary">No menu items available.</p>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="flex-grow-1 p-5">
+    <router-outlet></router-outlet>
+  </div>
+</div>

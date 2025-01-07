@@ -6,12 +6,19 @@ import { InputComponent } from './components/input/input.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
-
+import { HttpClientModule } from '@angular/common/http'; // Correct import
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RadioGroupComponent, InputComponent, ReactiveFormsModule, NgIf],
+  imports: [
+    RadioGroupComponent,
+    InputComponent,
+    ReactiveFormsModule,
+    NgIf,
+    SidebarComponent,
+    RouterOutlet, // Ensure RouterOutlet is imported
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -20,7 +27,9 @@ export class AppComponent implements OnInit {
   radioOptions = ['1-10', '10-50', '50-100', '100+'];
   selectedRadioOption = '';
   errorMessage = "Please select an option";
+
   constructor(private fb: FormBuilder) { }
+
   ngOnInit(): void {
     this.form = this.fb.group({
       search: [''],
@@ -37,11 +46,14 @@ export class AppComponent implements OnInit {
       console.log(this.form.value);
     }
   }
+
   onInput(event: Event) {
     const value = (event.target as HTMLInputElement).value;
     console.log("Input value:", value);
   }
+
   onRadioOptionSelected(option: string) {
+    this.selectedRadioOption = option;
     console.log(`Selected option: ${option}`);
   }
 }
