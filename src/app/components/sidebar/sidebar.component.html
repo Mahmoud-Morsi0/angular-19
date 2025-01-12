@@ -1,10 +1,9 @@
 <div class="min-h-screen flex relative lg:static surface-ground">
   <!-- Sidebar Toggle Button (for mobile) -->
   <button (click)="isSidebarVisible = !isSidebarVisible" class="lg:hidden p-2 fixed top-2 left-2 z-2">
-    <app-icon name="menu" [size]="24" />
+    <app-icon name="dashboard" [size]="24" />
   </button>
 
-  <!-- Sidebar -->
   <div class="h-screen hidden lg:block flex-shrink-0 absolute lg:static left-0 top-0 z-1 select-none"
     [class.block]="isSidebarVisible" style="width: 280px">
     <div class="h-full bg-surface-card border-right-1 surface-border flex flex-column">

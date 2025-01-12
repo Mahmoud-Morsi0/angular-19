@@ -31,44 +31,44 @@ export class SidebarComponent implements OnInit {
     },
     {
       label: 'Users',
-      iconName: 'users',
+      iconName: 'dashboard',
       routerLink: ['/admin/users'],
       roles: ['admin'],
     },
     {
       label: 'Products',
-      iconName: 'shopping-cart',
+      iconName: 'dashboard',
       routerLink: ['/admin/products'],
       roles: ['admin', 'manager'],
     },
     {
       label: 'Orders',
-      iconName: 'shopping-bag',
+      iconName: 'dashboard',
       routerLink: ['/admin/orders'],
       roles: ['admin', 'manager', 'employee'],
     },
     {
       label: 'Analytics',
-      iconName: 'chart-line',
+      iconName: 'dashboard',
       routerLink: ['/admin/analytics'],
       roles: ['admin', 'manager'],
     },
     {
       label: 'Settings',
-      iconName: 'cog',
+      iconName: 'dashboard',
       routerLink: ['/admin/settings'],
       roles: ['admin'],
     },
     {
       label: 'Reports',
-      iconName: 'file',
+      iconName: 'dashboard',
       routerLink: ['/admin/reports'],
       roles: ['admin', 'manager'],
     },
   ];
 
   // Filtered menu items based on user role
-  visibleMenuItems: MenuItem[] = [];
+  visibleMenuItems: MenuItem[] = this.allMenuItems;
 
   // Sidebar visibility state
   isSidebarVisible = false;
@@ -76,29 +76,11 @@ export class SidebarComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.updateVisibleMenuItems();
-  }
-
-  // Update visible menu items based on the current user's role
-  private updateVisibleMenuItems(): void {
-    this.authService.getCurrentUserRole().subscribe({
-      next: (userRole) => {
-        if (userRole) {
-          this.visibleMenuItems = this.filterMenuItemsByRole(userRole);
-        } else {
-          console.warn('No user role found. Showing no menu items.');
-          this.visibleMenuItems = [];
-        }
-      },
-      error: (error) => {
-        console.error('Failed to fetch user role:', error);
-        this.visibleMenuItems = [];
-      },
-    });
+    this.filterMenuItemsByRole();
   }
 
   // Filter menu items by user role
-  private filterMenuItemsByRole(role: UserRole): MenuItem[] {
+  private filterMenuItemsByRole(role: UserRole = 'admin'): MenuItem[] {
     return this.allMenuItems.filter((item) => item.roles.includes(role));
   }
 }

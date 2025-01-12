@@ -1,0 +1,108 @@
+.table-container {
+  border-radius: 8px;
+  border: 1px solid var(--Borders-Border-2, #e7e7e7);
+  overflow-x: scroll;
+  // overflow-y: hidden;
+  width: 100%;
+  max-width: 1052px;
+  position: relative;
+}
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #e2e2e2;
+  border-radius: 8px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-track {
+}
+
+table {
+  border-collapse: separate !important;
+  border-spacing: 0;
+  border-bottom: 10px solid rgb(213, 213, 213);
+  border-radius: 8px;
+  -webkit-overflow-scrolling: touch;
+}
+
+thead th {
+  background: var(--Backgrounds-Background-3, #f0f0f8);
+  color: var(--Text-Body-3, #6d6d6d);
+  font-family: Archia;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  height: 30px;
+  position: relative;
+  text-align: center;
+  padding: 28px 16px;
+  &:hover .resizer{
+    background-color: var(--primary-color);
+
+  }
+}
+
+td {
+  text-align: left;
+  height: 80px;
+  padding: 24px 16px;
+  background-color: white;
+  color: var(--Text-Body-1, #454545);
+  font-family: Archia;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+th{
+  opacity: 1;
+    position: relative;
+    width: 240px;
+    z-index: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+tr {
+  border-bottom: 1px solid var(--Borders-Border-2, #b0b0b0);
+  background: var(--Widgets-Background, #fff);
+  display: flex;
+  align-items: center;
+}
+
+.resizer {
+  background: var(--Borders-Border-2, #e7e7e7);
+  cursor: col-resize;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  touch-action: none;
+  user-select: none;
+  width: 2px;
+  transition: all 0.3s ease-in-out;
+
+}
+.icon-pin {
+  border: 0px;
+  cursor: pointer;
+}
+.pin-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  padding: 8px 12px;
+  & button{
+    background-color: transparent;
+  }
+
+}

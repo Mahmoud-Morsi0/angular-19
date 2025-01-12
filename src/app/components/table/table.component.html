@@ -1,0 +1,102 @@
+<div class="p-2">
+  <div class="table-container">
+    <table [style.width.px]="table.getTotalSize()">
+      <thead>
+        @for (headerGroup of table.getHeaderGroups(); track headerGroup.id) {
+          <tr>
+            @for (header of headerGroup.headers; track header.id) {
+              <!-- IMPORTANT: This is where the magic happens! -->
+              <th
+                [attr.colSpan]="header.colSpan"
+                [ngStyle]="getCommonPinningStyles(header.column)"
+              >
+                <div class="whitespace-nowrap">
+                  @if (!header.isPlaceholder) {
+                    <ng-container
+                      *flexRender="
+                        header.column.columnDef.header;
+                        props: header.getContext();
+                        let headerValue
+                      "
+                    >
+                      {{ headerValue }}
+                    </ng-container>
+                  }
+                </div>
+
+                @if (!header.isPlaceholder && header.column.getCanPin()) {
+                  <div class="pin-container">
+                    @if (header.column.getIsPinned() !== 'left') {
+                      <button
+                        class="icon-pin "
+                        (click)="header.column.pin('left')"
+                      >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" >
+                        <path d="M9.56945 18.8201C9.37945 18.8201 9.18945 18.7501 9.03945 18.6001L2.96945 12.5301C2.67945 12.2401 2.67945 11.7601 2.96945 11.4701L9.03945 5.40012C9.32945 5.11012 9.80945 5.11012 10.0995 5.40012C10.3895 5.69012 10.3895 6.17012 10.0995 6.46012L4.55945 12.0001L10.0995 17.5401C10.3895 17.8301 10.3895 18.3101 10.0995 18.6001C9.95945 18.7501 9.75945 18.8201 9.56945 18.8201Z" fill="#292D32"/>
+                        <path d="M20.4999 12.75H3.66992C3.25992 12.75 2.91992 12.41 2.91992 12C2.91992 11.59 3.25992 11.25 3.66992 11.25H20.4999C20.9099 11.25 21.2499 11.59 21.2499 12C21.2499 12.41 20.9099 12.75 20.4999 12.75Z" fill="#292D32"/>
+                        </svg>
+                      </button>
+                    }
+
+                    @if (header.column.getIsPinned()) {
+                      <button
+                        class="icon-pin"
+                        (click)="header.column.pin(false)"
+                      >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 14 14" fill="none">
+                        <path d="M8.23286 6.99925L13.7414 1.4989C13.906 1.33424 13.9985 1.11091 13.9985 0.878038C13.9985 0.645168 13.906 0.421835 13.7414 0.257171C13.5767 0.0925073 13.3534 0 13.1206 0C12.8877 0 12.6644 0.0925073 12.4998 0.257171L7 5.76627L1.50024 0.257171C1.33559 0.0925073 1.11228 2.06752e-07 0.879436 2.08487e-07C0.646591 2.10222e-07 0.423282 0.0925073 0.258636 0.257171C0.0939896 0.421835 0.0014924 0.645168 0.0014924 0.878038C0.0014924 1.11091 0.0939896 1.33424 0.258636 1.4989L5.76714 6.99925L0.258636 12.4996C0.176683 12.5809 0.111635 12.6776 0.067245 12.7842C0.0228546 12.8907 0 13.005 0 13.1205C0 13.2359 0.0228546 13.3502 0.067245 13.4568C0.111635 13.5633 0.176683 13.66 0.258636 13.7413C0.33992 13.8233 0.436626 13.8884 0.543175 13.9327C0.649725 13.9771 0.764009 14 0.879436 14C0.994863 14 1.10915 13.9771 1.2157 13.9327C1.32225 13.8884 1.41895 13.8233 1.50024 13.7413L7 8.23224L12.4998 13.7413C12.581 13.8233 12.6778 13.8884 12.7843 13.9327C12.8909 13.9771 13.0051 14 13.1206 14C13.236 14 13.3503 13.9771 13.4568 13.9327C13.5634 13.8884 13.6601 13.8233 13.7414 13.7413C13.8233 13.66 13.8884 13.5633 13.9328 13.4568C13.9771 13.3502 14 13.2359 14 13.1205C14 13.005 13.9771 12.8907 13.9328 12.7842C13.8884 12.6776 13.8233 12.5809 13.7414 12.4996L8.23286 6.99925Z" fill="#292D32"/>
+                        </svg>
+                      </button>
+                    }
+
+                    @if (header.column.getIsPinned() !== 'right') {
+                      <button
+                        class="icon-pin"
+                        (click)="header.column.pin('right')"
+                      >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none">
+                        <path d="M14.4291 18.8201C14.2391 18.8201 14.0491 18.7501 13.8991 18.6001C13.6091 18.3101 13.6091 17.8301 13.8991 17.5401L19.4391 12.0001L13.8991 6.46012C13.6091 6.17012 13.6091 5.69012 13.8991 5.40012C14.1891 5.11012 14.6691 5.11012 14.9591 5.40012L21.0291 11.4701C21.3191 11.7601 21.3191 12.2401 21.0291 12.5301L14.9591 18.6001C14.8091 18.7501 14.6191 18.8201 14.4291 18.8201Z" fill="#292D32"/>
+                        <path d="M20.33 12.75H3.5C3.09 12.75 2.75 12.41 2.75 12C2.75 11.59 3.09 11.25 3.5 11.25H20.33C20.74 11.25 21.08 11.59 21.08 12C21.08 12.41 20.74 12.75 20.33 12.75Z" fill="#292D32"/>
+                        </svg>
+                      </button>
+                    }
+                  </div>
+                }
+
+                <!-- Resize column -->
+                <div
+                  class="resizer"
+                  [class.isResizing]="header.column.getIsResizing()"
+                  (dblclick)="header.column.resetSize()"
+                  (mousedown)="header.getResizeHandler()($event)"
+                  (touchstart)="header.getResizeHandler()($event)"
+                ></div>
+              </th>
+            }
+          </tr>
+        }
+      </thead>
+      <tbody>
+        @for (row of table.getRowModel().rows; track row.id) {
+          <tr>
+            @for (cell of row.getVisibleCells(); track cell.id) {
+              <td [ngStyle]="getCommonPinningStyles(cell.column)">
+                <ng-container
+                  *flexRender="
+                    cell.column.columnDef.cell;
+                    props: cell.getContext();
+                    let cellValue
+                  "
+                >
+                  {{ cellValue }}
+                </ng-container>
+              </td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+

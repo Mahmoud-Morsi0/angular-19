@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http'; // Correct import
+import { TableComponent } from './components/table/table.component';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http'; // Correct import
     ReactiveFormsModule,
     NgIf,
     SidebarComponent,
-    RouterOutlet, // Ensure RouterOutlet is imported
+    RouterOutlet,
+    TableComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

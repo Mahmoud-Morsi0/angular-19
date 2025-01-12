@@ -1,9 +1,4 @@
-<brite-radio-group [options]="radioOptions" [selectedOption]="selectedRadioOption"
-  (optionSelected)="onRadioOptionSelected($event)">
-</brite-radio-group>
-
-
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<!-- <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <brite-input label="Search" name="search" [debounceTime]="1000" formControlName="search"
     (debouncedValue)="onDebouncedSearch($event)"></brite-input>
 
@@ -15,4 +10,6 @@
   <button type="submit" [disabled]="!form.valid">Submit</button>
 </form>
 
-<brite-sidebar></brite-sidebar>
+<brite-sidebar></brite-sidebar> -->
+
+<brite-table></brite-table>

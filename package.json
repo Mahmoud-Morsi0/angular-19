@@ -23,6 +23,7 @@
     "@angular/router": "^19.0.0",
     "@angular/ssr": "^19.0.6",
     "@primeng/themes": "^19.0.1",
+    "@tanstack/angular-table": "^8.20.5",
     "express": "^4.18.2",
     "primeicons": "^7.0.0",
     "primeng": "^19.0.1",
