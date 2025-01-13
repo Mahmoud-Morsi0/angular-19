@@ -301,9 +301,13 @@ export class TableComponent implements OnInit {
     document.querySelectorAll('.checkbox').forEach((checkbox) => {
       (checkbox as HTMLInputElement).checked = checked;
     })
-    const selectedIds = this.data().map((item) => {
-      return item.id;
-    });
+    if (checked) {
+      this.selectedIds = this.data().map((item) => {
+        return item.id;
+      });
+    } else {
+      this.selectedIds = [];
+    }
     this.selectedIdsChange.emit(this.selectedIds);
     console.log("Selected Rows:", this.selectedIds);
   }
