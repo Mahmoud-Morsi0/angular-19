@@ -19,13 +19,9 @@
   background-clip: padding-box;
 }
 
-::-webkit-scrollbar-track {
-}
-
 table {
   border-collapse: separate !important;
   border-spacing: 0;
-  border-bottom: 10px solid rgb(213, 213, 213);
   border-radius: 8px;
   -webkit-overflow-scrolling: touch;
 }
@@ -37,18 +33,14 @@ thead th {
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
-  height: 30px;
+  height: 32px;
   position: relative;
-  text-align: center;
-  padding: 28px 16px;
-  &:hover .resizer{
-    background-color: var(--primary-color);
+  padding: 8px 16px;
 
-  }
 }
 
 td {
-  text-align: left;
+  opacity: 1 !important;
   height: 80px;
   padding: 24px 16px;
   background-color: white;
@@ -60,34 +52,24 @@ td {
   line-height: 24px;
 }
 th{
-  opacity: 1;
+  opacity: 1 !important;
     position: relative;
     width: 240px;
     z-index: 0;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
 }
 
 tr {
-  border-bottom: 1px solid var(--Borders-Border-2, #b0b0b0);
+  border-bottom: 1px solid var(--Borders-Border-2, #E7E7E7);;
   background: var(--Widgets-Background, #fff);
   display: flex;
   align-items: center;
-}
-
-.resizer {
-  background: var(--Borders-Border-2, #e7e7e7);
-  cursor: col-resize;
-  height: 100%;
-  position: absolute;
-  right: 0;
-  top: 0;
-  touch-action: none;
-  user-select: none;
-  width: 2px;
-  transition: all 0.3s ease-in-out;
-
+  opacity: 1;
+ &:last-child {
+    border-bottom: none;
+  }
 }
 .icon-pin {
   border: 0px;
@@ -104,5 +86,13 @@ tr {
   & button{
     background-color: transparent;
   }
+}
 
+.checkbox {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 0;
 }

@@ -6,7 +6,6 @@ import { InputComponent } from './components/input/input.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http'; // Correct import
 import { TableComponent } from './components/table/table.component';
 
 @Component({
@@ -38,7 +37,9 @@ export class AppComponent implements OnInit {
       username: ['', [Validators.required, Validators.minLength(3)]],
     });
   }
-
+  handleSelectedIdsChange(selectedIds: number[]) {
+    console.log('Selected IDs:', selectedIds);
+  }
   onDebouncedSearch(value: string): void {
     console.log('Debounced Search Term:', value);
   }
