@@ -33,59 +33,6 @@ type Person = {
   progress: number,
 }
 
-const defaultColumns: ColumnDef<Person>[] = [
-  {
-    header: () => '',
-    cell: info => info.getValue(),
-    footer: props => props.column.id,
-    id: 'select',
-    size: 52,
-  },
-  {
-    accessorKey: 'firstName',
-    id: 'firstName',
-    cell: info => info.getValue(),
-    header: () => 'First Name',
-    footer: props => props.column.id,
-    size: 200,
-  },
-  {
-    accessorKey: 'lastName',
-    id: 'lastName',
-    cell: info => info.getValue(),
-    header: () => 'Last Name',
-    footer: props => props.column.id,
-    size: 200,
-  },
-  {
-    accessorKey: 'age',
-    id: 'age',
-    header: 'Age',
-    footer: props => props.column.id,
-    size: 200,
-  },
-  {
-    accessorKey: 'visits',
-    id: 'visits',
-    header: 'Visits',
-    footer: props => props.column.id,
-    size: 200,
-  },
-  {
-    accessorKey: 'status',
-    id: 'status',
-    header: 'Status',
-    footer: props => props.column.id,
-    size: 200,
-  },
-  {
-    accessorKey: 'progress',
-    id: 'progress',
-    header: 'Profile Progress',
-    footer: props => props.column.id,
-    size: 150,
-  },
-]
 @Component({
   selector: 'brite-table',
   imports: [FlexRenderDirective, NgStyle, ToastModule],
@@ -220,7 +167,60 @@ export class TableComponent implements OnInit {
       progress: 66,
     },
   ])
-  readonly columns = signal([...defaultColumns])
+  columns = input<ColumnDef<any>[]>([
+    {
+      header: () => '',
+      cell: info => info.getValue(),
+      footer: props => props.column.id,
+      id: 'select',
+      size: 52,
+    },
+    {
+      accessorKey: 'firstName',
+      id: 'firstName',
+      cell: info => info.getValue(),
+      header: () => 'First Name',
+      footer: props => props.column.id,
+      size: 200,
+    },
+    {
+      accessorKey: 'lastName',
+      id: 'lastName',
+      cell: info => info.getValue(),
+      header: () => 'Last Name',
+      footer: props => props.column.id,
+      size: 200,
+    },
+    {
+      accessorKey: 'age',
+      id: 'age',
+      header: 'Age',
+      footer: props => props.column.id,
+      size: 200,
+    },
+    {
+      accessorKey: 'visits',
+      id: 'visits',
+      header: 'Visits',
+      footer: props => props.column.id,
+      size: 200,
+    },
+    {
+      accessorKey: 'status',
+      id: 'status',
+      header: 'Status',
+      footer: props => props.column.id,
+      size: 200,
+    },
+    {
+      accessorKey: 'progress',
+      id: 'progress',
+      header: 'Profile Progress',
+      footer: props => props.column.id,
+      size: 150,
+    },
+  ])
+
 
 
   table = createAngularTable(() => ({
