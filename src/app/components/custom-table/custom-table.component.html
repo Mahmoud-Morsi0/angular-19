@@ -1,0 +1,129 @@
+<div class="custom-header">
+
+  <div class="custom-search-container">
+    <input-debouncer
+      placeholder="Buscar..."
+      (onDebouce)="onSearch($event)"
+    />
+
+    @if (showButton()) {
+      <button class="custom-btn-danger" (click)="onShowDataSelected()">Enviar</button>
+    }
+  </div>
+
+  <div class="custom-dropdown">
+    <button type="button" class="custom-btn-primary custom-dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+      Columnas
+    </button>
+
+    <div class="custom-dropdown-menu">
+
+      <div class="custom-list-group">
+        @for (column of table.getAllColumns(); track column.id) {
+          @if (column.id !== 'select' && column.id !== 'actions') {
+            <button
+              class="custom-list-group-item"
+              [ngClass]="{'custom-item-info': column.getIsVisible()}"
+              (click)="column.toggleVisibility(!column.getIsVisible())"
+              [disabled]="table.getVisibleLeafColumns().length === 3 && column.getIsVisible()"
+            >
+              {{ column.columnDef.header }}
+            </button>
+          }
+        }
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<table class="custom-table">
+  <thead>
+    @for (headerGroup of table.getHeaderGroups(); track headerGroup.id) {
+      <tr>
+        @for (headerItem of headerGroup.headers; track headerItem.id) {
+          @if (!headerItem.isPlaceholder) {
+            @if (headerItem.id === 'select') {
+              <th>
+                <input type="checkbox"
+                  [checked]="table.getIsAllRowsSelected()"
+                  [indeterminate]="table.getIsSomeRowsSelected()"
+                  (change)="table.toggleAllRowsSelected()"
+                />
+              </th>
+            } @else {
+              <th>
+                <ng-container
+                  *flexRender="
+                    headerItem.column.columnDef.header;
+                    props: headerItem.getContext();
+                    let header
+                  "
+                >
+                  <button (click)="onSortingColumn(headerItem.column)" class="custom-sorting-btn">
+                    <div [innerHTML]="header"></div>
+                    <i class="bi bi-chevron-expand"></i>
+                  </button>
+                </ng-container>
+              </th>
+            }
+          }
+        }
+      </tr>
+    }
+  </thead>
+  <tbody>
+    @for (row of table.getRowModel().rows; track row.id) {
+      <tr>
+        @for (cell of row.getVisibleCells(); track cell.id) {
+          <td>
+            @if (cell.column.id === 'select') {
+              <input type="checkbox" [checked]="row.getIsSelected()" (change)="row.toggleSelected()" />
+            } @else if (cell.column.id === 'actions') {
+              <div class="custom-actions">
+                <button class="custom-dropdown-toggle"></button>
+                <ul class="custom-dropdown-menu">
+                  <li><button (click)="onCopyOnClipboard(row)">Copiar VIN</button></li>
+                </ul>
+              </div>
+            } @else {
+              <ng-container
+                *flexRender="
+                  cell.column.columnDef.cell;
+                  props: cell.getContext();
+                  let cell
+                "
+              >
+                <div [innerHTML]="cell"></div>
+              </ng-container>
+            }
+          </td>
+        }
+      </tr>
+    } @empty {
+      <tr>
+        <td colspan="8" class="custom-no-data">No hay datos para mostrar.</td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+<div class="custom-footer">
+  <div>
+    <span>{{ table.getFilteredSelectedRowModel().rows.length }} filas seleccionadas de {{ table.getFilteredRowModel().rows.length }}</span>
+  </div>
+
+  <div>
+    <span>Mostrando {{ table.getRowModel().rows.length }} de {{ table.getRowCount() }} registros.</span>
+  </div>
+
+  <div class="custom-pagination">
+    <select (change)="onChangeValueSelect($event)">
+      @for (size of sizesPages(); track size) {
+        <option [value]="size" [selected]="size === table.getState().pagination.pageSize">{{size}}</option>
+      }
+    </select>
+    <button [disabled]="!table.getCanPreviousPage()" (click)="table.previousPage()">Anterior</button>
+    <button [disabled]="!table.getCanNextPage()" (click)="table.nextPage()">Siguiente</button>
+  </div>
+</div>

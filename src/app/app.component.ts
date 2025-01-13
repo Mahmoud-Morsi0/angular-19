@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { TableComponent } from './components/table/table.component';
+import { CustomTableComponent } from './components/custom-table/custom-table.component';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ import { TableComponent } from './components/table/table.component';
     SidebarComponent,
     RouterOutlet,
     TableComponent,
+    CustomTableComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
